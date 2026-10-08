@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "digital-twin-benchmark"
+version = "0.1.0"
+description = "Fixed-split VGGT + gsplat and AnySplat benchmark"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.25,<2", "Pillow==10.4.0", "PyYAML==6.0.2"]
+
+[project.optional-dependencies]
+eval = ["scikit-image==0.24.0", "lpips==0.1.4"]
+test = ["pytest==8.3.5", "scikit-image==0.24.0"]
+
+[project.scripts]
+dtbench = "benchmark.run:main"
+
+[tool.setuptools.packages.find]
+include = ["benchmark*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

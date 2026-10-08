@@ -1,0 +1,4 @@
+scene: kitchen
+split: splits/kitchen.json
+image_dir: images
+colmap_dir: sparse/0

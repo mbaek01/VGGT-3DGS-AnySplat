@@ -1,0 +1,14 @@
+method: vggt_3dgs
+seed: 42
+vggt:
+  use_ba: false
+  conf_thres_value: 5.0
+  checkpoint_repo: facebook/VGGT-1B
+  checkpoint_revision: 860abec7937da0a4c03c41d3c269c366e82abdf9
+gsplat:
+  iterations: 30000
+  sh_degree: 3
+  packed: false
+  antialiased: false
+  near_plane: 0.01
+  far_plane: 10000000000.0

@@ -1,0 +1,5 @@
+{
+  "vggt": {"url": "https://github.com/facebookresearch/vggt.git", "commit": "a288dd0f14786c93483e45524328726ab7b1b4ce"},
+  "gsplat": {"url": "https://github.com/nerfstudio-project/gsplat.git", "commit": "507f26e118afb78ef0224ad5e0d0701f1b973853", "tag": "v1.3.0"},
+  "anysplat": {"url": "https://github.com/InternRobotics/AnySplat.git", "commit": "5f5e208a7dd57d52e43ea0d553a95eab526e8775"}
+}

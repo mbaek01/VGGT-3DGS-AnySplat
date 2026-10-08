@@ -1,0 +1,9 @@
+[submodule "third_party/vggt"]
+	path = third_party/vggt
+	url = https://github.com/facebookresearch/vggt.git
+[submodule "third_party/gsplat"]
+	path = third_party/gsplat
+	url = https://github.com/nerfstudio-project/gsplat.git
+[submodule "third_party/anysplat"]
+	path = third_party/anysplat
+	url = https://github.com/InternRobotics/AnySplat.git

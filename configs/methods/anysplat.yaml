@@ -1,0 +1,8 @@
+method: anysplat
+seed: 42
+checkpoint_repo: lhjiang/anysplat
+checkpoint_revision: d2e8c343672646041ad4ea518184968f94362f01
+vggt_checkpoint_revision: 860abec7937da0a4c03c41d3c269c366e82abdf9
+input_size: 448
+near: 0.01
+far: 100.0

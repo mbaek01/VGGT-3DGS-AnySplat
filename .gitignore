@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+
+# Download archives, source images and camera files
+/data/*
+!/data/.gitkeep
+
+# Prepared images and setup intermediates
+/work/
+
+# Experiment renders, metrics, logs and native checkpoints
+/outputs/*
+!/outputs/.gitkeep
+
+# Local model caches and weights
+/.cache/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+.DS_Store

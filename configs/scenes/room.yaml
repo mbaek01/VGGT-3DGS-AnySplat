@@ -1,0 +1,4 @@
+scene: room
+split: splits/room.json
+image_dir: images
+colmap_dir: sparse/0

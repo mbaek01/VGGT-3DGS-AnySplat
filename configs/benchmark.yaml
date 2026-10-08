@@ -1,0 +1,19 @@
+data_root: data/mipnerf360
+prepared_root: work/prepared
+output_root: outputs
+scenes: [kitchen, room]
+methods: [vggt_3dgs, anysplat]
+preprocessing:
+  width: 448
+  height: 448
+  policy: resize_short_edge_center_crop
+  interpolation: bicubic
+alignment:
+  mode: sim3_train_centers
+evaluation:
+  lpips_net: alex
+  device: cpu
+environments:
+  vggt: [conda, run, --no-capture-output, -n, dtb-vggt, python]
+  gsplat: [conda, run, --no-capture-output, -n, dtb-gsplat, python]
+  anysplat: [conda, run, --no-capture-output, -n, dtb-anysplat, python]

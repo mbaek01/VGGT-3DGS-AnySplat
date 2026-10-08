@@ -1,0 +1,8 @@
+-c common-constraints.txt
+torch==2.2.0
+torchvision==0.17.0
+torchaudio==2.2.0
+numpy==1.25.0
+xformers==0.0.24
+torch-scatter==2.1.2
+e3nn==0.5.5

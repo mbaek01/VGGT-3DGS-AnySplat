@@ -1,0 +1,8 @@
+-c common-constraints.txt
+torch==2.3.1
+torchvision==0.18.1
+numpy==1.26.4
+gsplat==1.3.0
+nerfview==0.0.2
+viser==0.2.1
+tyro==0.8.14
