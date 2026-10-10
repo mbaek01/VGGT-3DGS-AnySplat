@@ -71,8 +71,6 @@ def execute_stage(command, log, cwd):
 def run_one(args, cfg, scene, method):
     from benchmark.datasets.mipnerf360 import load_split
     method_cfg = read_yaml(ROOT / "configs/methods" / f"{method}.yaml")
-    if method == "ours":
-        raise NotImplementedError("'ours' is a placeholder, not an executable baseline")
     if method == "anysplat" and cfg["preprocessing"]["width"] != cfg["preprocessing"]["height"]:
         raise ValueError("Use square shared crops: native AnySplat preprocessing otherwise changes the field of view")
     if args.iterations is not None:
@@ -133,9 +131,10 @@ def run_one(args, cfg, scene, method):
         timing["reconstruction_compute_seconds"] = (timing["vggt"]["inference_seconds"] + timing["native"]["optimization_seconds"] if method == "vggt_3dgs" else timing["native"]["inference_seconds"])
         timing["render_seconds"] = timing["native"]["render_seconds"]
         write_json(out / "timing.json", timing)
+        metrics = None
         if not args.skip_evaluation:
             from benchmark.evaluation.evaluator import evaluate
-            evaluate(out, prepared, cfg["evaluation"], args.skip_lpips)
+            metrics = evaluate(out, prepared, cfg["evaluation"], args.skip_lpips)
         status["status"] = "rendered" if args.skip_evaluation else ("complete_partial_metrics" if args.skip_lpips else "complete")
     except BaseException as exc:
         status.update(status="failed", error=str(exc))
@@ -147,6 +146,16 @@ def run_one(args, cfg, scene, method):
 
 
 def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    # Support the requested shorthand while preserving every existing subcommand.
+    index = 0
+    if argv and argv[0] == "--config":
+        index = min(2, len(argv))
+    elif argv and argv[0].startswith("--config="):
+        index = 1
+    if (any(arg == "--method" or arg.startswith("--method=") for arg in argv)
+            and (index == len(argv) or argv[index] not in ("check", "prepare", "run", "evaluate"))):
+        argv.insert(index, "run")
     parser = argparse.ArgumentParser(description="Fixed 32/4-view Mip-NeRF 360 benchmark")
     parser.add_argument("--config", default="configs/benchmark.yaml", help="Global YAML; relative paths resolve from repository root")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -156,7 +165,7 @@ def main(argv=None):
     prep.add_argument("--data-root", type=Path)
     run = sub.add_parser("run", help="Reconstruct, render four test cameras and evaluate")
     run.add_argument("--scene", choices=["kitchen", "room", "all"], default="all")
-    run.add_argument("--method", choices=["vggt_3dgs", "anysplat", "ours", "all"], default="all")
+    run.add_argument("--method", choices=["vggt_3dgs", "anysplat", "all"], default="all")
     run.add_argument("--data-root", type=Path)
     run.add_argument("--run-id")
     run.add_argument("--iterations", type=int, help="Override gsplat steps (smoke tests are not benchmark results)")

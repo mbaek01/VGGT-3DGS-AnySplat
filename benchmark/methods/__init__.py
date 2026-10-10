@@ -5,7 +5,4 @@ def get_method(name):
     if name == "anysplat":
         from .anysplat import AnySplatBaseline
         return AnySplatBaseline()
-    if name == "ours":
-        from .ours import OursBaseline
-        return OursBaseline()
     raise ValueError(f"Unknown method: {name}")

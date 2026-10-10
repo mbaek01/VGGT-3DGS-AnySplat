@@ -1,0 +1,14 @@
+# Frozen before evaluation. One scene-shared focal scale; no reference target.
+method: rgb_pose_focal_refine
+pose_config: configs/methods/rgb_pose_refine.yaml
+intrinsic_refinement:
+  enabled: true
+  model: shared_focal_scale
+  optimize_principal_point: false
+  initial_log_scale: 0.0
+  max_focal_scale_change: 0.10
+  focal_lr: 0.001
+  lambda_focal: 1.0
+  schedule: staged
+  total_iterations: 600  # Equal Adam-update budget for joint and staged.
+  focal_stage_iterations: 200

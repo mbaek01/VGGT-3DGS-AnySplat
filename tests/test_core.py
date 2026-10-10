@@ -147,7 +147,7 @@ def test_psnr_known_error():
     assert psnr_ssim(a, b)["psnr"] == pytest.approx(20., abs=1e-5)
 
 
-@pytest.mark.parametrize("module", ["benchmark.run", "benchmark.workers.native", "benchmark.workers.vggt_export"])
+@pytest.mark.parametrize("module", ["benchmark.run", "benchmark.reproduce", "benchmark.workers.native", "benchmark.workers.vggt_export"])
 def test_help_without_site_packages(module):
     result = subprocess.run([sys.executable, "-S", "-m", module, "--help"], cwd=ROOT, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
@@ -160,7 +160,8 @@ def test_dry_run_no_data(tmp_path):
     assert len(json.loads(result.stdout)["split"]["train"]) == 32
 
 
-def test_ours_fails_explicitly():
+def test_removed_method_adapters_fail_explicitly():
     from benchmark.methods import get_method
-    with pytest.raises(NotImplementedError, match="reserved"):
-        get_method("ours").reconstruct({})
+    for name in ("mpr_gs", "ours"):
+        with pytest.raises(ValueError, match="Unknown method"):
+            get_method(name)

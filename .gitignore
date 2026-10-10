@@ -15,6 +15,114 @@ __pycache__/
 /outputs/*
 !/outputs/.gitkeep
 
+# Publish both baselines and the final staged RGB Pose+Focal pipeline.
+# Other top-level method packages (MPR, Shared-K, Oracle, ablations, audits)
+# and historical experiment drivers stay local, including restored copies.
+/benchmark/*
+!/benchmark/__init__.py
+!/benchmark/run.py
+!/benchmark/reproduce.py
+!/benchmark/datasets/
+!/benchmark/evaluation/
+!/benchmark/utils/
+!/benchmark/methods/
+!/benchmark/workers/
+!/benchmark/pose_refinement/
+!/benchmark/rgb_pose_refinement/
+!/benchmark/intrinsic_refinement/
+
+# Keep the VGGT+3DGS and AnySplat baseline adapters.
+/benchmark/methods/*
+!/benchmark/methods/__init__.py
+!/benchmark/methods/base.py
+!/benchmark/methods/common.py
+!/benchmark/methods/vggt_3dgs.py
+!/benchmark/methods/anysplat.py
+/benchmark/workers/*
+!/benchmark/workers/__init__.py
+!/benchmark/workers/native.py
+!/benchmark/workers/vggt_export.py
+!/benchmark/workers/pose_focal.py
+
+# Keep the shared geometry/optimizer helpers; exclude old experiment runners.
+/benchmark/pose_refinement/*
+!/benchmark/pose_refinement/__init__.py
+!/benchmark/pose_refinement/se3.py
+# Required by the retained pose/focal regression tests.
+!/benchmark/pose_refinement/pose_metrics.py
+/benchmark/rgb_pose_refinement/*
+!/benchmark/rgb_pose_refinement/__init__.py
+!/benchmark/rgb_pose_refinement/geometry.py
+!/benchmark/rgb_pose_refinement/matching.py
+!/benchmark/rgb_pose_refinement/optimizer.py
+/benchmark/intrinsic_refinement/*
+!/benchmark/intrinsic_refinement/__init__.py
+!/benchmark/intrinsic_refinement/optimizer.py
+
+# The pose-only YAML supplies matching, pose priors and bounds to staged Ours.
+# MPR, Shared-K and diagnostic/ablation YAMLs are not published.
+/configs/*
+!/configs/benchmark.yaml
+!/configs/scenes/
+!/configs/methods/
+/configs/scenes/*
+!/configs/scenes/kitchen.yaml
+!/configs/scenes/room.yaml
+/configs/methods/*
+!/configs/methods/vggt_3dgs.yaml
+!/configs/methods/anysplat.yaml
+!/configs/methods/rgb_pose_refine.yaml
+!/configs/methods/rgb_pose_focal_refine.yaml
+
+# Environments used by both baselines, final Ours and the common evaluator.
+/envs/*
+!/envs/common-constraints.txt
+!/envs/eval.yaml
+!/envs/vggt.yaml
+!/envs/vggt-constraints.txt
+!/envs/gsplat.yaml
+!/envs/gsplat-constraints.txt
+!/envs/anysplat.yaml
+!/envs/anysplat-constraints.txt
+
+# Retain setup, baseline queues, model downloads and metric-table generation.
+/scripts/*
+!/scripts/setup.sh
+!/scripts/download_data.sh
+!/scripts/preflight.py
+!/scripts/test.sh
+!/scripts/run_all.sh
+!/scripts/prefetch.py
+!/scripts/make_table.py
+
+# Keep only final-method documentation and relevant regression tests.
+/docs/*
+!/docs/REPRODUCE_OURS.md
+/tests/*
+!/tests/test_core.py
+!/tests/test_rgb_pose_refinement.py
+!/tests/test_intrinsic_refinement.py
+!/tests/test_ours_reproduction.py
+# Archived CPU workflow lacks the native dependencies of final-method tests.
+/.github/workflows/cpu-tests.yml
+
+# Keep third_party/, .gitmodules and third_party.lock.json: check_pins()
+# currently validates every upstream entry, including AnySplat.
+
+# Local research reports, result tables, audits and reproduction artifacts.
+/reports/
+/VALIDATION.md
+/main.tex
+/main.pdf
+/main.aux
+/main.bbl
+/main.blg
+/main.log
+/main.out
+/main.synctex.gz
+/test.sh
+/logs/
+
 # Local model caches and weights
 /.cache/
 *.pt
